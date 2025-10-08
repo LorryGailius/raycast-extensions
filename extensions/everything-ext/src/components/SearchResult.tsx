@@ -81,7 +81,7 @@ export function SearchResult({ preferences, searchText, onSearchTextChange }: Se
             <FileActionPanel file={file} preferences={preferences} onToggleDetails={onToggleDetails}>
               {dirname(file.commandline) !== file.commandline && (
                 <Action.Push
-                  title="Navigate up"
+                  title="Navigate Up"
                   icon={Icon.ArrowUp}
                   target={
                     <DirectoryBrowser
@@ -98,23 +98,25 @@ export function SearchResult({ preferences, searchText, onSearchTextChange }: Se
                   }}
                 />
               )}
-              <Action.Push
-                title="Navigate Down"
-                icon={Icon.ArrowDown}
-                target={
-                  <DirectoryBrowser
-                    directoryPath={file.commandline}
-                    preferences={preferences}
-                    previousDir={dirname(file.commandline)}
-                    isShowingDetail={isShowingDetail}
-                    onToggleDetails={onToggleDetails}
-                  />
-                }
-                shortcut={{
-                  macOS: { modifiers: ["cmd", "shift"], key: "arrowDown" },
-                  windows: { modifiers: ["ctrl", "shift"], key: "arrowDown" },
-                }}
-              />
+              {file.isDirectory && (
+                <Action.Push
+                  title="Navigate Down"
+                  icon={Icon.ArrowDown}
+                  target={
+                    <DirectoryBrowser
+                      directoryPath={file.commandline}
+                      preferences={preferences}
+                      previousDir={dirname(file.commandline)}
+                      isShowingDetail={isShowingDetail}
+                      onToggleDetails={onToggleDetails}
+                    />
+                  }
+                  shortcut={{
+                    macOS: { modifiers: ["cmd", "shift"], key: "arrowDown" },
+                    windows: { modifiers: ["ctrl", "shift"], key: "arrowDown" },
+                  }}
+                />
+              )}
             </FileActionPanel>
           }
           detail={
